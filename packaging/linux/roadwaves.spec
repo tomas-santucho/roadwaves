@@ -15,7 +15,7 @@ install -D -m 0755 %{rw_payload}/roadwaves-gui %{buildroot}%{_bindir}/roadwaves-
 install -D -m 0755 %{rw_payload}/roadwaves_scs.so %{buildroot}%{_libdir}/roadwaves/plugins/roadwaves_scs.so
 install -D -m 0644 %{rw_payload}/roadwaves.desktop %{buildroot}%{_datadir}/applications/roadwaves.desktop
 install -D -m 0644 %{rw_payload}/roadwaves.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/roadwaves.svg
-install -D -m 0644 %{rw_payload}/roadwaves.service %{buildroot}%{_userunitdir}/roadwaves.service
+install -D -m 0644 %{rw_payload}/roadwaves.service %{buildroot}/usr/lib/systemd/user/roadwaves.service
 install -D -m 0644 %{rw_payload}/README.md %{buildroot}%{_docdir}/roadwaves/README.md
 install -D -m 0644 %{rw_payload}/LICENSE %{buildroot}%{_docdir}/roadwaves/LICENSE
 install -D -m 0644 %{rw_payload}/IMPLEMENTATION_REPORT.md %{buildroot}%{_docdir}/roadwaves/IMPLEMENTATION_REPORT.md
@@ -26,7 +26,7 @@ install -D -m 0644 %{rw_payload}/IMPLEMENTATION_REPORT.md %{buildroot}%{_docdir}
 %{_libdir}/roadwaves/plugins/roadwaves_scs.so
 %{_datadir}/applications/roadwaves.desktop
 %{_datadir}/icons/hicolor/scalable/apps/roadwaves.svg
-%{_userunitdir}/roadwaves.service
+/usr/lib/systemd/user/roadwaves.service
 %doc %{_docdir}/roadwaves/README.md
 %license %{_docdir}/roadwaves/LICENSE
 %doc %{_docdir}/roadwaves/IMPLEMENTATION_REPORT.md
