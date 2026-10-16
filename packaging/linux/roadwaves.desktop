@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=RoadWaves
+Comment=Location-aware ETS2 radio companion
+Exec=roadwaves-gui
+Icon=roadwaves
+Terminal=false
+Categories=AudioVideo;Game;
+Keywords=ETS2;radio;truck;Radio Garden;

@@ -1,0 +1,9 @@
+Package: roadwaves
+Version: @VERSION@
+Section: contrib/games
+Priority: optional
+Architecture: amd64
+Maintainer: RoadWaves contributors
+Depends: libc6, libgcc-s1, libstdc++6, libx11-6, libxcb1, libxkbcommon0
+Description: Location-aware ETS2 Radio Garden companion
+ RoadWaves routes selected Radio Garden MP3 streams to ETS2's native Internet Radio player.

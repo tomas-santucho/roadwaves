@@ -1,0 +1,11 @@
+[package]
+name = "roadwaves-gui"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+eframe.workspace = true
+getrandom.workspace = true
+roadwaves-core = { path = "../roadwaves-core" }
+serde_json.workspace = true

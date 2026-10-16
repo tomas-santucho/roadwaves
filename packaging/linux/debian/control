@@ -1,0 +1,11 @@
+Source: roadwaves
+Section: contrib/games
+Priority: optional
+Maintainer: RoadWaves contributors
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Package: roadwaves
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Location-aware ETS2 Radio Garden companion
+ RoadWaves routes selected Radio Garden MP3 streams to ETS2's native Internet Radio player.

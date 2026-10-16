@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="RoadWaves">
+  <rect width="128" height="128" rx="24" fill="#172033"/>
+  <path d="M18 76c18-22 32-22 46 0s28 22 46 0" fill="none" stroke="#55d6be" stroke-linecap="round" stroke-width="10"/>
+  <path d="M18 52c18-22 32-22 46 0s28 22 46 0" fill="none" stroke="#f6c85f" stroke-linecap="round" stroke-width="8"/>
+</svg>

@@ -1,0 +1,102 @@
+name: Dev deliverables
+
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dev-deliverables-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-linux:
+    name: Linux quality checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt,clippy
+      - name: Install Linux build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential clang pkg-config libssl-dev libfontconfig1-dev libxkbcommon-dev libxcb-shape0-dev libxcb-xfixes0-dev
+      - uses: Swatinem/rust-cache@v2
+      - name: Format
+        run: cargo fmt --all -- --check
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: Tests
+        run: cargo test --workspace
+      - name: Release build
+        run: cargo build --workspace --release
+
+  linux-packages:
+    name: Linux packages
+    runs-on: ubuntu-latest
+    needs: quality-linux
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install packaging dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential clang pkg-config libssl-dev libfontconfig1-dev libxkbcommon-dev libxcb-shape0-dev libxcb-xfixes0-dev dpkg-dev rpm
+      - uses: Swatinem/rust-cache@v2
+      - name: Build Ubuntu package
+        run: bash packaging/linux/build-deb.sh
+      - name: Build Fedora package
+        run: bash packaging/linux/build-rpm.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: roadwaves-linux-dev
+          path: |
+            dist/*.deb
+            dist/*.rpm
+
+  windows:
+    name: Windows installer
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-gcc-libs
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-gnu
+          components: rustfmt,clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: Build and test Windows target
+        shell: pwsh
+        env:
+          CC_x86_64_pc_windows_gnu: C:\msys64\ucrt64\bin\gcc.exe
+          CXX_x86_64_pc_windows_gnu: C:\msys64\ucrt64\bin\g++.exe
+          AR_x86_64_pc_windows_gnu: C:\msys64\ucrt64\bin\ar.exe
+          CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER: C:\msys64\ucrt64\bin\gcc.exe
+        run: |
+          $env:PATH = "C:\msys64\ucrt64\bin;$env:PATH"
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --target x86_64-pc-windows-gnu -- -D warnings
+          cargo test --workspace --target x86_64-pc-windows-gnu
+          cargo build --workspace --release --target x86_64-pc-windows-gnu
+      - uses: ilammy/setup-innosetup@v2
+      - name: Build Windows installer
+        shell: pwsh
+        env:
+          CXX: C:\msys64\ucrt64\bin\g++.exe
+        run: |
+          $env:PATH = "C:\msys64\ucrt64\bin;$env:PATH"
+          .\packaging\windows\build-installer.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: roadwaves-windows-dev
+          path: dist/RoadWaves-*-windows-x64.exe

@@ -1,0 +1,10 @@
+/target/
+/dist/
+/.tools-llvm/
+.env
+.env.*
+*.log
+*.corrupt-*
+.vscode/
+.idea/
+Thumbs.db

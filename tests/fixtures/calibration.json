@@ -1,0 +1,5 @@
+[
+  {"world_x": 0.0, "world_z": 0.0, "real": {"latitude": 52.5200, "longitude": 13.4050}},
+  {"world_x": 100.0, "world_z": 0.0, "real": {"latitude": 52.6200, "longitude": 13.4050}},
+  {"world_x": 0.0, "world_z": 100.0, "real": {"latitude": 52.5200, "longitude": 13.5050}}
+]

@@ -1,0 +1,9 @@
+../../target/x86_64-unknown-linux-gnu/release/roadwaves usr/bin
+../../target/x86_64-unknown-linux-gnu/release/roadwaves-gui usr/bin
+roadwaves.desktop usr/share/applications
+roadwaves.svg usr/share/icons/hicolor/scalable/apps
+../../target/roadwaves_scs.so usr/lib/roadwaves/plugins
+roadwaves.service usr/lib/systemd/user
+../../README.md usr/share/doc/roadwaves
+../../LICENSE usr/share/doc/roadwaves
+../../docs/IMPLEMENTATION_REPORT.md usr/share/doc/roadwaves

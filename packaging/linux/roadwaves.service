@@ -1,0 +1,12 @@
+[Unit]
+Description=RoadWaves ETS2 local radio service
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/roadwaves serve
+Restart=on-failure
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target
