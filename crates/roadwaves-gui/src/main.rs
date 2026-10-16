@@ -696,7 +696,7 @@ impl RoadWavesApp {
                 egui::CollapsingHeader::new("Settings & diagnostics")
                     .default_open(false)
                     .show(ui, |ui| {
-                    ui.label(&self.status);
+                        ui.label(&self.status);
                         ui.label(format!("Service: {}", self.service_status));
                         ui.label(format!(
                             "Detected profiles: {} · game binaries: {}",
